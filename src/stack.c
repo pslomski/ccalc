@@ -16,8 +16,10 @@ typedef struct Stack {
 PStack stackCreate()
 {
 	PStack stack = malloc(sizeof(Stack));
-	if (stack)
+	if (stack) {
 		stack->list = listCreate();
+	}
+	return stack;
 }
 
 void stackFree(PStack this)
@@ -40,7 +42,7 @@ void* stackPop(PStack this)
 
 void* stackPeek(PStack this)
 {
-	void* val = listPeekFront(this->list);
+	return listPeekFront(this->list);
 }
 
 int stackSize(PStack this)

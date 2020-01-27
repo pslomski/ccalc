@@ -7,6 +7,7 @@ typedef struct List* PList;
 
 PList listCreate();
 void listFree(PList this);
+int listIsEmpty(PList this);
 void listPushFront(PList this, void* val);
 void* listPopFront(PList this);
 void* listPeekFront(PList this);

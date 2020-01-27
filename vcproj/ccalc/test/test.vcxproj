@@ -126,10 +126,12 @@
     <ClCompile Include="..\..\..\src\list.c" />
     <ClCompile Include="..\..\..\src\stack.c" />
     <ClCompile Include="..\..\..\test\test.c" />
+    <ClCompile Include="..\..\..\test\test_list.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\list.h" />
     <ClInclude Include="..\..\..\src\stack.h" />
+    <ClInclude Include="..\..\..\test\test_list.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

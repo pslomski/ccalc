@@ -38,9 +38,14 @@ void listFree(PList this)
 	free(this);
 }
 
-Node* listFront(PList this)
+PNode listFront(PList this)
 {
 	return this->front;
+}
+
+int listIsEmpty(PList this)
+{
+	return this->front == NULL;
 }
 
 int listSize(PList this)
