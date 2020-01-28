@@ -49,3 +49,8 @@ int stackSize(PStack this)
 {
 	return listSize(this->list);
 }
+
+int stackIsEmpty(PStack this)
+{
+	return stackSize(this) == 0;
+}

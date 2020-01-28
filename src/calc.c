@@ -6,72 +6,7 @@
 #include <ctype.h>
 #include <assert.h>
 #include <math.h>
-
-// Stos
-typedef struct {
-	int maxsize;
-	int top;
-	void** items;
-} Stack;
-
-Stack* stackCreate(size_t capacity)
-{
-	Stack* stack = malloc(sizeof(Stack));
-	if (stack) {
-		stack->maxsize = (int)capacity;
-		stack->top = -1;
-		stack->items = malloc(sizeof(void*) * capacity);
-	}
-	return stack;
-}
-
-void stackFree(Stack* stack)
-{
-	free(stack->items);
-	free(stack);
-}
-
-int stackSize(Stack* stack)
-{
-	return stack->top + 1;
-}
-
-int stackIsEmpty(Stack* pt)
-{
-	return stackSize(pt) == 0;
-}
-
-int stackIsFull(Stack* pt)
-{
-	return stackSize(pt) == pt->maxsize;
-}
-
-void stackPush(Stack* pt, void* x)
-{
-	if (stackIsFull(pt)) {
-		printf("stackPush: Stack overflow\nProgram Terminated\n");
-		exit(EXIT_FAILURE);
-	}
-	pt->items[++pt->top] = x;
-}
-
-void* stackPop(Stack* pt)
-{
-	if (stackIsEmpty(pt)) {
-		printf("stackPop: Stack underflow\nProgram Terminated\n");
-		exit(EXIT_FAILURE);
-	}
-	// decrease stack size by 1 and (optionally) return the popped element
-	return pt->items[pt->top--];
-}
-
-void* stackPeek(Stack* pt)
-{
-	if (!stackIsEmpty(pt))
-		return pt->items[pt->top];
-	else
-		exit(-1);
-}
+#include "stack.h"
 
 // Stream
 typedef struct {
@@ -299,7 +234,7 @@ char* infix_to_onp(char* infix)
 	char* postfix = malloc(4 * strlen(infix));
 	if (postfix) {
 		postfix[0] = 0;
-		Stack* stack = stackCreate(strlen(infix));
+		PStack stack = stackCreate();
 		Parser* parser = parserCreate(streamCreate(infix));
 		while (!parserEOF(parser)) {
 			Token* token = parserGetToken(parser);
@@ -382,7 +317,7 @@ char* infix_to_onp(char* infix)
 	return postfix;
 }
 
-double eval(TokenKind kind, double a, double b) {
+double eval_(TokenKind kind, double a, double b) {
 	switch (kind) {
 	case tokPlus:
 		return a + b;
@@ -402,7 +337,7 @@ double eval_onp(char* onp)
 	Token* a;
 	Token* b;
 	Token* tok;
-	Stack* stack = stackCreate(strlen(onp));
+	PStack stack = stackCreate();
 	Parser* parser = parserCreate(streamCreate(onp));
 	while (!parserEOF(parser)) {
 		Token* token = parserGetToken(parser);
@@ -420,7 +355,7 @@ double eval_onp(char* onp)
 				a = stackPop(stack);
 				b = stackPop(stack);
 				tok = tokenCreate(tokNumber, "");
-				tok->dval = eval(token->kind, b->dval, a->dval);
+				tok->dval = eval_(token->kind, b->dval, a->dval);
 				stackPush(stack, tok);
 				tokenFree(a);
 				tokenFree(b);
@@ -476,7 +411,18 @@ void listArgv(int argc, char* argv[])
 	}
 }
 
-int main(int argc, char* argv[])
+double eval(const char* expr)
+{
+	char* postfix = infix_to_onp(expr);
+	if (postfix) {
+		double res = eval_onp(postfix);
+		free(postfix);
+		return res;
+	}
+}
+
+
+int _main(int argc, char* argv[])
 {
     //listArgv(argc, argv);
 	if (argc > 1) {
@@ -494,4 +440,5 @@ int main(int argc, char* argv[])
 		printf("wywolanie:\n");
 		printf("calc \"wyrazenie\"\n");
 	}
+	return 0;
 }

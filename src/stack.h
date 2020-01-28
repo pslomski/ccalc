@@ -11,5 +11,6 @@ void stackPush(PStack this, void* val);
 void* stackPop(PStack this);
 void* stackPeek(PStack this);
 int stackSize(PStack this);
+int stackIsEmpty(PStack this);
 
 #endif // __STACK_H__

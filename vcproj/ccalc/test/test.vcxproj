@@ -123,15 +123,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\calc.c" />
     <ClCompile Include="..\..\..\src\list.c" />
     <ClCompile Include="..\..\..\src\stack.c" />
     <ClCompile Include="..\..\..\test\test.c" />
+    <ClCompile Include="..\..\..\test\test_calc.c" />
     <ClCompile Include="..\..\..\test\test_list.c" />
+    <ClCompile Include="..\..\..\test\test_stack.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\calc.h" />
     <ClInclude Include="..\..\..\src\list.h" />
     <ClInclude Include="..\..\..\src\stack.h" />
+    <ClInclude Include="..\..\..\test\test_calc.h" />
     <ClInclude Include="..\..\..\test\test_list.h" />
+    <ClInclude Include="..\..\..\test\test_stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
