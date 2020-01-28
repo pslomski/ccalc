@@ -1,4 +1,4 @@
 # ccalc
 Arithmetic expressions parser and evaluator in c
 ## Dependencies
-https://github.com/jeradesign/MinUnit
+A minimal unit testing framework for ANSI C. https://github.com/jeradesign/MinUnit
