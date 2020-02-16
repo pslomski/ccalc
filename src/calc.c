@@ -379,9 +379,12 @@ double eval_onp(char* onp)
 			}
 		}
 	}
-	tok = stackPop(stack);
-	double res = tok->dval;
-	tokenFree(tok);
+	double res = 0.0;
+	if (!stackIsEmpty(stack)) {
+		tok = stackPop(stack);
+		res = tok->dval;
+		tokenFree(tok);
+	}
 	parserFree(parser);
 	assert(stackIsEmpty(stack));
 	stackFree(stack);
